@@ -56,5 +56,8 @@ const checkSession = (req, res) => {
         return res.status(500).json(error)
     }
 }
+const prueba = (req, res) => {
+        return res.send("estoy en la pagina de prueba");
+}
 
-module.exports = {login, register, checkSession}
+module.exports = {login, register, checkSession, prueba}
