@@ -42,8 +42,8 @@ const getPerfil = async (req, res) => {
 const getPerfilbyId = async (req, res) => {
     try {
         const {id} = req.params;
-
-        const findPerfil = await Perfil.find({ 'id_user': id });
+        
+        const findPerfil = await Perfil.find({ 'idUser': id });
         if (!findPerfil)
          {
            return res.status(404).json({message:"No hay perfiles de usuario con el id indicado"});
@@ -55,7 +55,7 @@ const getPerfilbyId = async (req, res) => {
   }
  
 const postPerfil = async (req, res) => {
-   try {
+    try {
       const newPerfil = new Perfil(req.body);
 
       if (req.file)
@@ -78,7 +78,8 @@ const putPerfil = async (req, res) =>  {
        const {id} = req.params;
        const putPerfil = new Perfil(req.body);
        putPerfil._id = id;
-
+       console.log('actualizo', id);
+       
        if (req.file)
        {
           putPerfil.imagen = req.file.path;
@@ -101,7 +102,6 @@ const putPerfil = async (req, res) =>  {
 const deletePerfil = async (req, res) =>  {
    try {
        const {id} = req.params;
-       console.log(id);
        const deletedPerfil = await Perfil.findByIdAndDelete(id);
 
        if(!deletedPerfil){

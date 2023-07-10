@@ -8,8 +8,8 @@ const upload = require("../../middlewares/upload.file");
 
 projectsRouter.get("/", getProjects)
 projectsRouter.get("/project/:id",getProjectbyId)
-projectsRouter.post("/", postProject)
-projectsRouter.put("/:id", putProject)
+projectsRouter.post("/", upload.single('imagen'), postProject)
+projectsRouter.put("/:id", upload.single('imagen'), putProject)
 projectsRouter.delete("/:id", deleteProject)
 
 module.exports = projectsRouter
