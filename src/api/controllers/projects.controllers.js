@@ -3,28 +3,53 @@ const { deleteFile } = require("../../middlewares/delete.file");
 
 const getProjects = async (req, res) => {
     try {
-       const allProjects = await Project.find();
-       if (allProjects.length == 0)
-          return res.status(404).json({message:"No hay proyectos de usuario asociados."});   
-     
-       return res.status(200).json(allProjects);   
+        //Recoger querys de numero de pagina(page) y limite por pagina(limit)
+        let {page, limit} = req.query;
+        
+        //Contar el numero de elementos en mi coleccion
+        const numProjects = await Project.countDocuments();
+        
+        //Si no está seteado seteo el limite a 5
+        limit = limit ? parseInt(limit) || 20 : 20;
+  
+        //Comprobar el numero máximo de paginas dependiendo de mi limite
+        let numPages = numProjects%limit > 0 ? numProjects/limit + 1 : numProjects/limit;
+  
+        //Si no está seteado seteo el numero de pagina a 1
+        page = page > numPages ? numPages : page < 1 ? 1 :  parseInt(page) || 1;
+  
+        // Calculo el salto(skip) que tengo que dar a mi find para empezar a partir del elemento que quiero
+        const skip = (page - 1) * limit;
+  
+        const allProject = await Project.find().skip(skip).limit(limit);
+  
+        const response = {
+            info: {
+                numPerfiles: numPerfiles,
+                page: page,
+                limit: limit,
+                nextPage: numPages >= page + 1 ? `lista?page=${page + 1}&limit=${limit}` : null,
+                previousPage: page != 1 ? `lista?page=${page - 1}&limit=${limit}` : null
+            },
+            results: allProject
+        }
+        return res.status(200).json(response);
     } catch (error) {
-    //  console.log(error);
-      return res.status(500).json(error);
+        return res.status(500).json(error)
     }
  }
  
  const getProjectbyId = async (req, res) => {
      try {
          const {id} = req.params;
- 
          const findProject = await Project.findById(id);
+
          if (!findProject)
           {
             return res.status(404).json({message:"No hay proyectos de usuario con el id indicado"});
           }
 
-          return res.status(200).json(findProject);
+         return res.status(200).json(findProject);
       } catch (error) {
         return res.status(500).json(error);
       }

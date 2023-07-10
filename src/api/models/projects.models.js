@@ -4,13 +4,22 @@ const Schema = mongoose.Schema
 const projectsSchema = new Schema(
     {
         id: {type: String, require:true},
-        id_user:{type: Schema.Types.ObjectId, ref:"perfilUsuario"},
-        name_project: {type: String, require:true},
+        idUser:{type: Schema.Types.ObjectId, ref:"perfilUsuario"},
+        name: {type: String, require:true},
         imagen: {type:String},
-        frameworks: {type:String},
+        html: {type:String},
+        css: {type:String},
+        react: {type:String},
+        angular: {type:String},
+        php: {type:String},
+        jscript: {type:String},
+        python: {type:String},
+        java: {type:String},
+        otros: {type:String},
+        otherText: {type:String},
         description: {type:String},
-        enlace_git: {type:String},
-        enlace_proyecto: {type:String},
+        enlaceGit: {type:String},
+        enlaceProyecto: {type:String}
    },{
       timestamps: true 
    }

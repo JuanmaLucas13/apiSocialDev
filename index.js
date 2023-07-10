@@ -53,6 +53,7 @@ app.use(express.urlencoded({extended: false}));
 app.use("/user", userRouter);
 app.use('/perfil', perfilesRouter);
 app.use("/project", projectRouter);
+// app.use("*", (req, res) => {console.log('otra ruta', req)})
 
 // activamos el servidor.
 app.listen(PORT, () =>  console.log('listening on port', PORT)) 

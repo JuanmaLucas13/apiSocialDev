@@ -6,7 +6,7 @@ const {getProjects, getProjectbyId, postProject, putProject, deleteProject} = re
 const {isAuth} = require("../../middlewares/auth")
 const upload = require("../../middlewares/upload.file");
 
-projectsRouter.get("/", getProjects)
+projectsRouter.get("/lista", getProjects)
 projectsRouter.get("/project/:id",getProjectbyId)
 projectsRouter.post("/", upload.single('imagen'), postProject)
 projectsRouter.put("/:id", upload.single('imagen'), putProject)
