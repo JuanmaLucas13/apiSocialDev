@@ -23,9 +23,8 @@ const login = async (req, res) => {
 }
 const register = async (req, res) => {
     try {
-
         const newUser = new User (req.body); 
-
+        // console.log(newUser);
         //Validar email 
         if(!validateEmail(newUser.email)){
             return res.status(400).json({message: "Invalid email"})
@@ -42,6 +41,7 @@ const register = async (req, res) => {
         //Encriptar password
         newUser.password = bcrypt.hashSync(newUser.password, 10)        
         const createdUser = await newUser.save();
+
         return res.status(201).json(createdUser)
 
     } catch (error) {

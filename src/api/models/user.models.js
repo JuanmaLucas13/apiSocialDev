@@ -7,6 +7,7 @@ const userSchema = new Schema(
         lastname: {type:String, require:true},
         email: {type:String, require:true},
         password: {type:String, require:true},
+        addnews: {type:Boolean},
         role: {type:String, default:"user", enum:["admin", "user"]}
 },{
    timestamps: true 
