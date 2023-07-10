@@ -3,22 +3,47 @@ const { deleteFile } = require("../../middlewares/delete.file");
 
 const getPerfil = async (req, res) => {
    try {
-      const perfilSelect = await Perfil.find();
-      if (perfilSelect.length == 0)
-         return res.status(404).json({message:"No hay perfil de usuario asociado."});   
-    
-      return res.status(200).json(perfilSelect);   
-   } catch (error) {
-    console.log(error);
-     return res.status(500).json(error);
-   }
+      //Recoger querys de numero de pagina(page) y limite por pagina(limit)
+      let {page, limit} = req.query;
+      
+      //Contar el numero de elementos en mi coleccion
+      const numPerfiles = await Perfil.countDocuments();
+      
+      //Si no está seteado seteo el limite a 5
+      limit = limit ? parseInt(limit) || 20 : 20;
+
+      //Comprobar el numero máximo de paginas dependiendo de mi limite
+      let numPages = numPerfiles%limit > 0 ? numPerfiles/limit + 1 : numPerfiles/limit;
+
+      //Si no está seteado seteo el numero de pagina a 1
+      page = page > numPages ? numPages : page < 1 ? 1 :  parseInt(page) || 1;
+
+      // Calculo el salto(skip) que tengo que dar a mi find para empezar a partir del elemento que quiero
+      const skip = (page - 1) * limit;
+
+      const allPerfiles = await Perfil.find().skip(skip).limit(limit);
+
+      const response = {
+          info: {
+              numPerfiles: numPerfiles,
+              page: page,
+              limit: limit,
+              nextPage: numPages >= page + 1 ? `lista?page=${page + 1}&limit=${limit}` : null,
+              previousPage: page != 1 ? `lista?page=${page - 1}&limit=${limit}` : null
+          },
+          results: allPerfiles
+      }
+      return res.status(200).json(response);
+  } catch (error) {
+      return res.status(500).json(error)
+  }
 }
 
 const getPerfilbyId = async (req, res) => {
     try {
         const {id} = req.params;
 
-        const findPerfil = await Perfil.findById(id);
+        const findPerfil = await Perfil.find({ 'id_user': id });
         if (!findPerfil)
          {
            return res.status(404).json({message:"No hay perfiles de usuario con el id indicado"});
@@ -76,6 +101,7 @@ const putPerfil = async (req, res) =>  {
 const deletePerfil = async (req, res) =>  {
    try {
        const {id} = req.params;
+       console.log(id);
        const deletedPerfil = await Perfil.findByIdAndDelete(id);
 
        if(!deletedPerfil){

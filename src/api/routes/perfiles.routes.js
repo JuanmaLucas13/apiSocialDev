@@ -6,8 +6,8 @@ const {getPerfil, getPerfilbyId, postPerfil, putPerfil, deletePerfil} = require 
 const {isAuth} = require("../../middlewares/auth")
 const upload = require("../../middlewares/upload.file");
 
-perfilesRouter.get("/", getPerfil)
-perfilesRouter.get("/perfil/:id",getPerfilbyId)
+perfilesRouter.get("/lista", getPerfil)
+perfilesRouter.get("/:id",getPerfilbyId)
 perfilesRouter.post("/", postPerfil)
 perfilesRouter.put("/:id", putPerfil)
 perfilesRouter.delete("/:id", deletePerfil)
