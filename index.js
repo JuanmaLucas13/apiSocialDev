@@ -8,11 +8,21 @@ dotenv.config();
 // importamos los ficheros de conexion y las rutas a usar
 const{connect} = require("./src/utils/db.js")
 const userRouter = require("./src/api/routes/user.routes");
+const perfilesRouter = require("./src/api/routes/perfiles.routes");
+const projectRouter = require("./src/api/routes/projects.routes");
+const {isAuth} = require("./src/middlewares/auth")
+const cors = require("cors")
 
+//configuramos cloudinary
+const cloudinary = require('cloudinary').v2;
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_NAME,
+    api_key: process.env.CLOUDINARY_KEY,
+    api_secret: process.env.CLOUDINARY_SECRET
+  });
 // configuramos el puerto y activamos el servidor http
 const PORT = process.env.PORT
-const app = express(); //creamos un servidor con expressç
-const cors = require("cors")
+const app = express(); //creamos un servidor con express
 
 // conectamos con BBDD
 connect ();
@@ -41,6 +51,8 @@ app.use(express.urlencoded({extended: false}));
 
 // configuramos el servidor con las rutas correspondientes
 app.use("/user", userRouter);
+app.use('/perfil', perfilesRouter);
+app.use("/project", projectRouter);
 
 // activamos el servidor.
 app.listen(PORT, () =>  console.log('listening on port', PORT)) 
