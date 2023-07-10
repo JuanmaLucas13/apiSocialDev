@@ -9,7 +9,7 @@ const perfilesSchema = new Schema(
         lastname: {type:String, require:true},
         image_profile: {type:String},
         email: {type:String},
-        addnews: {type:String, default:"N"},
+        addnews: {type:Boolean},
         description: {type:String},
         enlace_git: {type:String},
         enlace_linkedin: {type:String},
