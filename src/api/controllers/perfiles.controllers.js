@@ -60,7 +60,7 @@ const postPerfil = async (req, res) => {
 
       if (req.file)
       {
-         newPerfil.image_profile = req.file.path;
+         newPerfil.imagen = req.file.path;
       }
       
       //el metodo save nos sirve para guardar un elemento en BBDD
@@ -81,14 +81,14 @@ const putPerfil = async (req, res) =>  {
 
        if (req.file)
        {
-          newPerfil.image_profile = req.file.path;
+          putPerfil.imagen = req.file.path;
        }
        const updatedPerfil = await Perfil.findByIdAndUpdate(id, putPerfil, {new: true});
        if(!updatedPerfil){
            return res.status(404).json({message: 'No tenemos perfiles de usuario con ese ID'}); 
         }
-       if(updatedPerfil.image_profile !== putPerfil.image_profile){
-            deleteFile(updatedPerfil.image_profile);
+       if(updatedPerfil.imagen !== putPerfil.imagen){
+            deleteFile(updatedPerfil.imagen);
         }
 
 
@@ -108,8 +108,8 @@ const deletePerfil = async (req, res) =>  {
            return res.status(404).json({message: 'No tenemos perfiles de usuario con ese ID'}); 
         }
 
-       if (deletedPerfil.image_profile)
-           deleteFile(deletedPerfil.image_profile)
+       if (deletedPerfil.imagen)
+           deleteFile(deletedPerfil.imagen)
 
        return res.status(200).json(deletePerfil);
    } catch (error) {

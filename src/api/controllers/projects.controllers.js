@@ -36,7 +36,7 @@ const postProject = async (req, res) => {
  
        if (req.file)
        {
-          newProject.image_profile = req.file.path;
+          newProject.imagen = req.file.path;
        }
        
        //el metodo save nos sirve para guardar un elemento en BBDD
@@ -57,14 +57,14 @@ const postProject = async (req, res) => {
  
         if (req.file)
         {
-           newProject.image_profile = req.file.path;
+            putProject.imagen = req.file.path;
         }
         const updatedProject = await Pais.findByIdAndUpdate(id, putProject, {new: true});
         if(!updatedProject){
             return res.status(404).json({message: 'No tenemos proyectos de usuario con ese ID'}); 
          }
-        if(updatedProject.image_profile !== putProject.image_profile){
-             deleteFile(updatedProject.image_profile);
+        if(updatedProject.imagen !== putProject.imagen){
+             deleteFile(updatedProject.imagen);
          }
  
  
@@ -83,8 +83,8 @@ const postProject = async (req, res) => {
             return res.status(404).json({message: 'No tenemos proyecto de usuario con ese ID'}); 
          }
  
-        if (deletedProject.image_profile)
-            deleteFile(deletedProject.image_profile)
+        if (deletedProject.imagen)
+            deleteFile(deletedProject.imagen)
  
         return res.status(200).json(deletedProject);
     } catch (error) {

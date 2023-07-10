@@ -6,7 +6,7 @@ const projectsSchema = new Schema(
         id: {type: String, require:true},
         id_user:{type: Schema.Types.ObjectId, ref:"perfilUsuario"},
         name_project: {type: String, require:true},
-        imagen_project: {type:String},
+        imagen: {type:String},
         frameworks: {type:String},
         description: {type:String},
         enlace_git: {type:String},

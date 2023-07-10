@@ -7,7 +7,7 @@ const storage = new CloudinaryStorage(
        { 
         cloudinary: cloudinary,
         params: {
-        folder: 'album',
+        folder: 'socdev',
         allowedFormats: ['jpg', 'bmp', 'png', 'pdf']
         }
        }

@@ -7,7 +7,7 @@ const perfilesSchema = new Schema(
         id_user:{type: Schema.Types.ObjectId, ref:"user"},
         name: {type: String, require:true},
         lastname: {type:String, require:true},
-        image_profile: {type:String},
+        imagen: {type:String},
         email: {type:String},
         addnews: {type:Boolean},
         description: {type:String},
