@@ -7,7 +7,7 @@ const storage = new CloudinaryStorage(
        { 
         cloudinary: cloudinary,
         params: {
-        folder: 'socdev',
+        folder: 'socialDev',
         allowedFormats: ['jpg', 'bmp', 'png', 'pdf']
         }
        }

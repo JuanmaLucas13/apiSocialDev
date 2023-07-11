@@ -81,7 +81,6 @@ const getPerfilbyId = async (req, res) => {
 const postPerfil = async (req, res) => {
     try {
       const newPerfil = new Perfil(req.body);
-
       if (req.file)
       {
          newPerfil.imagen = req.file.path;
