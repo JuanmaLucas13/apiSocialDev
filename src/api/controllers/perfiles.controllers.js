@@ -53,7 +53,19 @@ const getPerfilbyId = async (req, res) => {
        return res.status(500).json(error);
      }
   }
-
+  const getPerfilbyId2 = async (req, res) => {
+    try {
+        const {id} = req.params;
+        const findPerfil = await Perfil.findById(id);
+        if (!findPerfil)
+         {
+           return res.status(404).json({message:"No hay perfiles de usuario con el id indicado"});
+         }
+        return res.status(200).json(findPerfil);
+     } catch (error) {
+       return res.status(500).json(error);
+     }
+  }
   const getPerfilesNews = async (req, res) => {
     try {
         const allPerfilNews = await Perfil.find().limit(8);
@@ -90,20 +102,20 @@ const putPerfil = async (req, res) =>  {
        const {id} = req.params;
        const putPerfil = new Perfil(req.body);
        putPerfil._id = id;
-       console.log('actualizo', id);
        
        if (req.file)
        {
           putPerfil.imagen = req.file.path;
        }
+
        const updatedPerfil = await Perfil.findByIdAndUpdate(id, putPerfil, {new: true});
+
        if(!updatedPerfil){
            return res.status(404).json({message: 'No tenemos perfiles de usuario con ese ID'}); 
         }
        if(updatedPerfil.imagen !== putPerfil.imagen){
             deleteFile(updatedPerfil.imagen);
         }
-
 
        return res.status(200).json(updatedPerfil);
    } catch (error) {
@@ -114,8 +126,6 @@ const putPerfil = async (req, res) =>  {
 const deletePerfil = async (req, res) =>  {
    try {
        const {id} = req.params;
-       console.log('borro', id);
-
        const deletedPerfil = await Perfil.findByIdAndDelete(id);
 
        if(!deletedPerfil){
@@ -131,4 +141,4 @@ const deletePerfil = async (req, res) =>  {
    }
 };
 
-module.exports = {getPerfil, getPerfilbyId, getPerfilesNews, postPerfil, putPerfil, deletePerfil} 
+module.exports = {getPerfil, getPerfilbyId,getPerfilbyId2, getPerfilesNews, postPerfil, putPerfil, deletePerfil} 
