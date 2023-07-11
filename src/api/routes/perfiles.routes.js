@@ -12,6 +12,6 @@ perfilesRouter.get("/perfil/:id",getPerfilbyId)
 perfilesRouter.get("/novedad", getPerfilesNews)
 perfilesRouter.post("/", upload.single('imagen'), postPerfil)
 perfilesRouter.put("/:id", upload.single('imagen'), putPerfil)
-perfilesRouter.delete("/delete/:id", deletePerfil)
+perfilesRouter.delete("/:id", deletePerfil)
 
 module.exports = perfilesRouter

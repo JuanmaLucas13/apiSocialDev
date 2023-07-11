@@ -114,6 +114,8 @@ const putPerfil = async (req, res) =>  {
 const deletePerfil = async (req, res) =>  {
    try {
        const {id} = req.params;
+       console.log('borro', id);
+
        const deletedPerfil = await Perfil.findByIdAndDelete(id);
 
        if(!deletedPerfil){
