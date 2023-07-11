@@ -10,6 +10,8 @@ const{connect} = require("./src/utils/db.js")
 const userRouter = require("./src/api/routes/user.routes");
 const perfilesRouter = require("./src/api/routes/perfiles.routes");
 const projectRouter = require("./src/api/routes/projects.routes");
+const respuestasRouter = require("./src/api/routes/respuestasmsj.routes");
+const mensajesRouter = require("./src/api/routes/mensajes.routes");
 const {isAuth} = require("./src/middlewares/auth")
 const cors = require("cors")
 
@@ -53,6 +55,8 @@ app.use(express.urlencoded({extended: false}));
 app.use("/user", userRouter);
 app.use('/perfil', perfilesRouter);
 app.use("/project", projectRouter);
+app.use('/mensajes', mensajesRouter);
+app.use('/respuestas', respuestasRouter);
 // app.use("*", (req, res) => {console.log('otra ruta', req)})
 
 // activamos el servidor.
