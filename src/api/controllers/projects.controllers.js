@@ -20,12 +20,11 @@ const getProjects = async (req, res) => {
   
         // Calculo el salto(skip) que tengo que dar a mi find para empezar a partir del elemento que quiero
         const skip = (page - 1) * limit;
-  
         const allProject = await Project.find().skip(skip).limit(limit);
   
         const response = {
             info: {
-                numPerfiles: numPerfiles,
+                numProyectos: numProjects,
                 page: page,
                 limit: limit,
                 nextPage: numPages >= page + 1 ? `lista?page=${page + 1}&limit=${limit}` : null,
