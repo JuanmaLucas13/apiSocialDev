@@ -50,6 +50,21 @@ const getProjects = async (req, res) => {
     }
  }
 
+ const getProjectsbyUser = async (req, res) => {
+    try {
+        const {id} = req.params;
+
+        const allProjectNews = await Project.find({idUser:id});
+
+        if (allProjectNews.length == 0)
+           return res.status(404).json({message: "No hay projectos nuevos informados"})
+            
+        return res.status(200).json(allProjectNews);
+    } catch (error) { 
+      return res.status(500).json(error)
+    }
+ }
+
  const getProjectbyId = async (req, res) => {
      try {
          const {id} = req.params;
@@ -128,4 +143,4 @@ const postProject = async (req, res) => {
     }
  };
  
- module.exports = {getProjects, getProjectbyId, getProjectsNews, postProject, putProject, deleteProject} 
+ module.exports = {getProjects, getProjectbyId, getProjectsNews, getProjectsbyUser, postProject, putProject, deleteProject} 
