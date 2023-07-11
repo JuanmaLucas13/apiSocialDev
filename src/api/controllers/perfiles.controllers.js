@@ -53,7 +53,19 @@ const getPerfilbyId = async (req, res) => {
        return res.status(500).json(error);
      }
   }
- 
+
+  const getPerfilesNews = async (req, res) => {
+    try {
+        const allPerfilNews = await Perfil.find().limit(8);
+        if (allPerfilNews.length == 0)
+           return res.status(404).json({message: "No hay perfiles nuevos informados"})
+            
+        return res.status(200).json(allPerfilNews);
+    } catch (error) { 
+      return res.status(500).json(error)
+    }
+ } 
+
 const postPerfil = async (req, res) => {
     try {
       const newPerfil = new Perfil(req.body);
@@ -117,4 +129,4 @@ const deletePerfil = async (req, res) =>  {
    }
 };
 
-module.exports = {getPerfil, getPerfilbyId, postPerfil, putPerfil, deletePerfil} 
+module.exports = {getPerfil, getPerfilbyId, getPerfilesNews, postPerfil, putPerfil, deletePerfil} 
