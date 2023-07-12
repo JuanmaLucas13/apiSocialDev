@@ -3,7 +3,6 @@ const Mensaje = require('../models/mensajes.models');
 const getMensajes = async (req, res) => {
     try {
         const allMensajes = await Mensaje.find();
-        
         if (allMensajes.length == 0)
            return res.status(404).json({message:"No hay mensajes informados."});   
       

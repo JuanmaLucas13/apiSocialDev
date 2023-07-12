@@ -5,7 +5,7 @@ const respuestasSchema = new Schema(
     {
         id: {type: String, require:true},
         idMsj:{type: Schema.Types.ObjectId, ref:"mensajes"},
-        idUser:{type: Schema.Types.ObjectId, ref:"perfilUsuario"},
+        email:{type: String},
         textomsj: {type: String, require:true},
    },{
       timestamps: true 
