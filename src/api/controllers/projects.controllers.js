@@ -68,7 +68,7 @@ const getProjects = async (req, res) => {
  const getProjectbyId = async (req, res) => {
      try {
          const {id} = req.params;
-         const findProject = await Project.findById(id);
+         const findProject = await Project.findById(id).populate("idUser");
 
          if (!findProject)
           {
