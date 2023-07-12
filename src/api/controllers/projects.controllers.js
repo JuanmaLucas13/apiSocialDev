@@ -110,7 +110,7 @@ const postProject = async (req, res) => {
         {
             putProject.imagen = req.file.path;
         }
-        const updatedProject = await Pais.findByIdAndUpdate(id, putProject, {new: true});
+        const updatedProject = await Project.findByIdAndUpdate(id, putProject, {new: true});
         if(!updatedProject){
             return res.status(404).json({message: 'No tenemos proyectos de usuario con ese ID'}); 
          }
